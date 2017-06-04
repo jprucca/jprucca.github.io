@@ -1,0 +1,23 @@
+.commands {
+    margin-top: 50px;
+    width: 50%;
+    float: left;
+}
+.commands .command-label {
+    width: 155px;
+    text-align: center;
+    display: inline-block;
+}
+.commands .skeletons-container {
+    margin-top: 170px; 
+    margin-left: 50px;
+}
+.commands .skeleton {
+    width: 70px;
+    padding-bottom: 0px;
+    transition: padding 0.2s linear;
+}
+.commands .skeleton.active {
+    padding-bottom: 20px;
+    transition: padding 0.2s linear;
+}

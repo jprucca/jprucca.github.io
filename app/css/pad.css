@@ -1,0 +1,63 @@
+.pad {
+  width: 95px;
+  height: 95px;
+  background: #2ecc71;
+  border-bottom: #27ae60 10px solid;
+  border-left: #27ae60 1px solid;
+  border-right: #27ae60 1px solid;
+  /*border-top: #27ae60 5px solid;*/
+  border-radius: 6px;  
+  padding: 10px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 15px;
+  position: relative;
+}
+
+.pad:hover {
+  opacity: 0.8;
+}
+
+.pad:active {
+  background: #2BBB68;
+  border-bottom: #27ae60 1px solid;
+  border-left: #27ae60 1px solid;
+  border-right: #27ae60 1px solid;
+  border-radius: 6px;
+  opacity: 0.8;
+  margin-top: 9px;
+  transition: all 0.2s ease;
+}
+
+.pad.active {
+  background: #2BBB68;
+  border-bottom: #27ae60 1px solid;
+  border-left: #27ae60 1px solid;
+  border-right: #27ae60 1px solid;
+  opacity: 0.8;
+  border-radius: 6px;
+  margin-top: 9px;
+  transition: all 0.2s ease;
+}
+
+.pad span {
+    position: absolute;
+    top: 30px;
+    color: white;
+}
+
+.pad.condensed {
+    height: 40px;
+}
+
+#record.pad.active {
+    background-color: red;
+    border-color: red;
+}
+/*#play.pad.active {
+    background-color: green;
+    border-color: green;
+}*/

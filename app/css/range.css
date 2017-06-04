@@ -1,0 +1,9 @@
+input[type=range] {
+  -webkit-appearance: none;
+  height: 250px;
+  width: 150px;
+  /*border-radius: 50px;*/
+  outline: none;
+  /*writing-mode: bt-lr;*/
+  -webkit-appearance: slider-vertical;
+}

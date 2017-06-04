@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link href="css/pad.css" rel="stylesheet">
+        <link href="css/range.css" rel="stylesheet">
+        <link href="css/padset.css" rel="stylesheet">
+        <link href="css/commands.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="commands">
+            <div class="ranges">
+                <input type="range" min="0.1" max="1" value="1" step="0.1" oninput="SOUNDS.setVolume(event)"> 
+                <input type="range" min="10" max="240" value="120" oninput="SOUNDS.setBpm(event)">
+                <input type="range" min="0" max="7" value="4" oninput="SOUNDS.setOctave(event)"> 
+                <!-- <select onchange="SOUNDS.setNoteLenght(event)">
+                <option value="4">redonda</option>
+                <option value="2">blanca</option>
+                <option value="1">negra</option>
+                <option value="0.5">corchea</option>
+                <option value="0.25">semicorchea</option>
+                </select> NoteLenght -->
+                <div>
+                    <div class="command-label">
+                        Volume
+                    </div>                    
+                    <div class="command-label">
+                        BPM
+                    </div>   
+                    <div class="command-label">
+                        Octave
+                    </div>                 
+                </div>       
+            </div> 
+            <div class="skeletons-container">
+                <img src="img/skeleton.png" class="skeleton" id="skeleton1">
+                <img src="img/skeleton.png" class="skeleton" id="skeleton2">
+                <img src="img/skeleton.png" class="skeleton active" id="skeleton3">
+                <img src="img/skeleton.png" class="skeleton" id="skeleton4">
+                <img src="img/skeleton.png" class="skeleton" id="skeleton5">
+            </div>
+        </div>
+
+
+        <div class="padset">
+            <br>
+            <span class="pad condensed" id="record" onclick="SOUNDS.toggleRecording()">
+                <span>
+                    RECORD &#9899;
+                </span>
+            </span>
+            <span class="pad condensed" id="play" onclick="SOUNDS.togglePlayer()">
+                <span>
+                    PLAY
+                </span>
+            </span>
+            <span class="pad condensed" id="clear" onclick="SOUNDS.clear()">
+                <span>
+                    CLEAR
+                </span>
+            </span>
+            <br><br>
+                     
+            <span onmousedown="SOUNDS.setWave(event)" id="sine" class="pad condensed active" data-value="sine">
+                <span>
+                    Sine
+                </span>
+            </span>
+            <span onmousedown="SOUNDS.setWave(event)" id="square" class="pad condensed" data-value="square">
+                <span>
+                    Square
+                </span>
+            </span>
+            <span onmousedown="SOUNDS.setWave(event)" id="triangle" class="pad condensed" data-value="triangle">
+                <span>
+                    Triangle
+                </span>
+            </span>
+            <span onmousedown="SOUNDS.setWave(event)" id="sawtooth" class="pad condensed" data-value="sawtooth">
+                <span>
+                    Sawtooth
+                </span>
+            </span>
+            <br><br><br><br><br><br><br><br>
+            
+                     
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="C"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="C#"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="D"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="Eb"></span>
+            <br>            
+            
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="E"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="F"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="F#"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="G"></span>
+            <br>            
+            
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="G#"></span>            
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="A"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="Bb"></span>
+            <span class="pad" onmousedown="SOUNDS.playSound(event)" data-note="B"></span>
+        </div>        
+            
+        
+        <script src="js/index.js" charset="utf-8"></script>
+        <script src="js/padset.js" charset="utf-8"></script>
+        <script src="js/beeper.js" charset="utf-8"></script>
+        <script src="js/player.js" charset="utf-8"></script>
+        <script src="js/commands.js" charset="utf-8"></script>
+        <script src="js/recorder.js" charset="utf-8"></script>
+        <script src="js/data/notes.js" charset="utf-8"></script>
+    </body>
+</html>
