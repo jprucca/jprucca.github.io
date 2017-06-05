@@ -11,9 +11,13 @@ SOUNDS.toggleRecording = function () {
         document.getElementById('record').classList.remove('active');
         SOUNDS.recording = false;
         
+        if (!SOUNDS.tape[SOUNDS.track].tapeLength) {
+            SOUNDS.tape[SOUNDS.track].tapeLength = SOUNDS.timer;
+        }
+        
         if (!SOUNDS.playing) {
             clearInterval(SOUNDS.timerInterval);
-            SOUNDS.tapeLength = SOUNDS.timer;
+            SOUNDS.tape[SOUNDS.track].tapeLength = SOUNDS.timer;
             SOUNDS.timer = 0;
             SOUNDS.togglePlayer();
         }
@@ -21,8 +25,10 @@ SOUNDS.toggleRecording = function () {
 }
 
 SOUNDS.clear = function () {
-    SOUNDS.tape = [];
-    SOUNDS.tapeLength = 0;
+    SOUNDS.tape[SOUNDS.track] = {
+        tapeLength: 0,
+        data: []
+    };
     SOUNDS.timer = 0;
     SOUNDS.recording = false;
     SOUNDS.playing = false;

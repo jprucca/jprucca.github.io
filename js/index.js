@@ -7,8 +7,40 @@ window.SOUNDS = {
     wave: 'sine',
     timer: 0,
     ms: 10,
-    tape: [],
-    tapeLength: 0,
+    tape: [
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        },
+        {
+            tapeLength: 0,
+            data: []
+        }],
+    track: 0,
     recording: false,
     playing: false,
     timerInterval: null,

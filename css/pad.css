@@ -53,6 +53,16 @@
     height: 40px;
 }
 
+.pad.small {
+    height: 40px;
+    width: 50px;
+}
+
+.pad.small span {
+    top: 25px;
+    left: 30px;
+}
+
 #record.pad.active {
     background-color: red;
     border-color: red;

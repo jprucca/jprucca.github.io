@@ -9,13 +9,17 @@ SOUNDS.playSound = function(event) {
         noteLength: SOUNDS.noteLength
     };
     
-    if (!SOUNDS.tape.length) {
+    if (!SOUNDS.tape[SOUNDS.track].data.length) {
         SOUNDS.timer = 10;
     }
     if (SOUNDS.recording) {
-        SOUNDS.tape[SOUNDS.timer] = [];
-        SOUNDS.tape[SOUNDS.timer].push(sound);
-    }    
+        if (SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer]) {
+            SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer].push(sound);
+        } else {
+            SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer] = [];
+            SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer].push(sound);
+        }
+    }
     
     SOUNDS.beep([sound]);
 }
