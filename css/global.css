@@ -1,0 +1,19 @@
+body {
+    background-color: black;
+    font-family: monospace;
+    color: white;
+    min-width: 1024px;
+    background-image: url('../img/background.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-origin: padding-box;
+    background-size: contain;
+    height: 800px;
+    overflow-y: hidden;
+}
+::selection {
+  background: none; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: none; /* Gecko Browsers */
+}

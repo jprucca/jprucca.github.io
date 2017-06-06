@@ -1,15 +1,3 @@
-body {
-    background-color: black;
-    font-family: monospace;
-    color: white;
-    min-width: 1024px;
-}
-::selection {
-  background: none; /* WebKit/Blink Browsers */
-}
-::-moz-selection {
-  background: none; /* Gecko Browsers */
-}
 .padset {
     float: right;
 }
