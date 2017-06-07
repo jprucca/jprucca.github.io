@@ -1,12 +1,13 @@
 SOUNDS.playSound = function(event) {
     var octave = SOUNDS.octave;
-    var note = event.target.getAttribute('data-note');
+    var note = event.target.getAttribute('data-note') || event.note;
     var frequency = SOUNDS.notes[octave][note];
     var sound = {
         frequency: frequency,
         wave: SOUNDS.wave,
-        bpm: SOUNDS.bpm,
-        noteLength: SOUNDS.noteLength
+        length: parseFloat(SOUNDS.length),
+        // noteLength: SOUNDS.noteLength,
+        volume: parseFloat(SOUNDS.volume)
     };
     
     if (!SOUNDS.tape[SOUNDS.track].data.length) {

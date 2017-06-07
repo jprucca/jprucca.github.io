@@ -1,8 +1,8 @@
 window.SOUNDS = {
     audioCtx: new (window.AudioContext || window.webkitAudioContext)(),
     octave: 4,
-    bpm: 120,
-    noteLength: 1,
+    length: 3,
+    // noteLength: 1,
     volume: 1,
     wave: 'sine',
     timer: 0,
@@ -21,5 +21,8 @@ window.SOUNDS = {
     recording: false,
     playing: false,
     timerInterval: null,
-    playerInterval: null
+    playerInterval: null,
+    registerOnKeyDownListener: null,
+    onKeyDown: null,
+    animatePad: null
 };

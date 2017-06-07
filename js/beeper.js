@@ -2,26 +2,34 @@ SOUNDS.beep = function (sounds) {
     sounds.forEach(function (sound) {
         var o = SOUNDS.audioCtx.createOscillator(), 
             g = SOUNDS.audioCtx.createGain(),
-            bpm = sound.bpm, 
-            noteLength = sound.noteLength, 
-            playLength = 0;
+            length = sound.length;
+            // noteLength = sound.noteLength, 
+            // playLength = 0;
         
         // 1 second divided by number of beats per second times number of beats (length of a note)
-        playLength = 1/(bpm/60) * noteLength;
+        // playLength = 1/(bpm/60) * noteLength;
         
             
         if (sound.frequency) {
-            o.type = sound.wave;        
-            o.frequency.value = sound.frequency;
-            o.start(SOUNDS.audioCtx.currentTime);
-            o.stop(SOUNDS.audioCtx.currentTime + playLength);
+            o.type = sound.wave;   
+            // var real = new Float32Array(SOUNDS.ethnic.real);
+            // var imag = new Float32Array(SOUNDS.ethnic.imag);
+            // var hornTable = SOUNDS.audioCtx.createPeriodicWave(real, imag); 
+            // o.setPeriodicWave(hornTable);              
             
-            g.gain.value = SOUNDS.volume;
-            g.gain.exponentialRampToValueAtTime(0.001, SOUNDS.audioCtx.currentTime + playLength);
-            o.connect(g);
+            g.gain.value = sound.volume;
+            g.gain.exponentialRampToValueAtTime(0.001, SOUNDS.audioCtx.currentTime + length);
+            
+            panner = SOUNDS.audioCtx.createPanner();
+            panner.setPosition((Math.random() * (-1 - 1) + 0.5).toFixed(4), 0, 1);
+            
+            o.frequency.value = sound.frequency;
+            o.connect(panner);
+            panner.connect(g);
             g.connect(SOUNDS.audioCtx.destination);
-            // o.connect(f);
-            // f.connect(SOUNDS.audioCtx.destination);
+            o.start(SOUNDS.audioCtx.currentTime);
+            o.stop(SOUNDS.audioCtx.currentTime + length);
+            
         }
     });
     var min = 1;
