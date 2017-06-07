@@ -21,7 +21,7 @@ SOUNDS.beep = function (sounds) {
             g.gain.exponentialRampToValueAtTime(0.001, SOUNDS.audioCtx.currentTime + length);
             
             panner = SOUNDS.audioCtx.createPanner();
-            panner.setPosition((Math.random() * (-1 - 1) + 0.5).toFixed(4), 0, 1);
+            panner.setPosition(SOUNDS.panner.x, 0, 1);
             
             o.frequency.value = sound.frequency;
             o.connect(panner);

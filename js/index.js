@@ -24,5 +24,8 @@ window.SOUNDS = {
     playerInterval: null,
     registerOnKeyDownListener: null,
     onKeyDown: null,
-    animatePad: null
+    animatePad: null,
+    setPanner: null,
+    panner: {x: 0, y: 0, z: 0},
+    activatePanner: false
 };

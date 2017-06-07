@@ -48,3 +48,18 @@ SOUNDS.setTrack = function (event) {
         element.classList.add('active');
     }
 }
+SOUNDS.setPanner = function (event) {
+    if (SOUNDS.activatePanner) {
+        SOUNDS.panner = {x: (event.clientX - 150) / 10, y: 0, z: 0}; 
+    }
+}
+SOUNDS.togglePanner = function (event) {
+    if (SOUNDS.activatePanner) {
+        SOUNDS.panner = {x: 0, y: 0, z: 0};
+        event.target.classList.remove('active');
+        SOUNDS.activatePanner = false;
+    } else {
+        SOUNDS.activatePanner = true;
+        event.target.classList.add('active');
+    }
+}

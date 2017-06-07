@@ -1,5 +1,5 @@
 .commands {
-    margin-top: 300px;
+    margin-top: 200px;
     width: 50%;
     float: left;
     /*background-color: black;*/
@@ -13,7 +13,7 @@
     display: block;
     position: absolute;
     top: 20px;
-    left: 30px;
+    left: 20px;
     background-color: black;
 }
 .commands .skeleton {
@@ -29,3 +29,16 @@
     margin-top: 50px;
     display: block;
 }
+.commands .panner {
+    width: 300px;
+    height: 30px;
+    margin-top: 40px;
+    background-color: #000;
+    border: 2px solid #cfcfcf;
+    cursor: e-resize;
+    text-align: center;
+    font-weight: bold;
+}
+.commands .panner.active {
+    background-color: #2ecc71;
+} 
