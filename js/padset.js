@@ -9,10 +9,15 @@ SOUNDS.playSound = function(event) {
         // noteLength: SOUNDS.noteLength,
         volume: parseFloat(SOUNDS.volume)
     };
+
+    if (SOUNDS.audioCtx.state === 'suspended') {
+        SOUNDS.audioCtx.resume();
+    }
     
     if (!SOUNDS.tape[SOUNDS.track].data.length) {
         SOUNDS.timer = 10;
     }
+    
     if (SOUNDS.recording) {
         if (SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer]) {
             SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer].push(sound);
