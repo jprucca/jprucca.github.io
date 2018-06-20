@@ -26,26 +26,22 @@ SOUNDS.setTrack = function (event) {
         var element = event.target.getAttribute('data-value') ? event.target : event.target.parentElement;
         
         SOUNDS.track = parseInt(element.getAttribute('data-value'));
-        if (SOUNDS.tape[SOUNDS.track].data.length && SOUNDS.playing) {
-            clearInterval(SOUNDS.playerInterval);
-            clearInterval(SOUNDS.timerInterval);
-            SOUNDS.timer = 0;
-            SOUNDS.playing = !SOUNDS.playing;
-            SOUNDS.togglePlayer();
-        } else if (!SOUNDS.tape[SOUNDS.track].data.length){
-            SOUNDS.togglePlayer();
+
+        SOUNDS.tape.forEach(function (tape, idx) {
+            tape.current = false;
+            document.getElementById('track' + (idx + 1)).classList.remove('current');
+        });
+
+        SOUNDS.tape[SOUNDS.track].current = !SOUNDS.tape[SOUNDS.track].current;
+        element.classList.add('current');
+
+        if (SOUNDS.tape[SOUNDS.track].current && !SOUNDS.tape[SOUNDS.track].active) {
+            SOUNDS.tape[SOUNDS.track].active = true;
+            element.classList.add('active');
+        } else if (SOUNDS.tape[SOUNDS.track].current && SOUNDS.tape[SOUNDS.track].active) {
+            SOUNDS.tape[SOUNDS.track].active = false;
+            element.classList.remove('active');
         }
-        
-        document.getElementById('track1').classList.remove('active');
-        document.getElementById('track2').classList.remove('active');
-        document.getElementById('track3').classList.remove('active');
-        document.getElementById('track4').classList.remove('active');
-        document.getElementById('track5').classList.remove('active');
-        document.getElementById('track6').classList.remove('active');
-        document.getElementById('track7').classList.remove('active');
-        document.getElementById('track8').classList.remove('active');
-        
-        element.classList.add('active');
     }
 }
 SOUNDS.setPanner = function (event) {

@@ -19,8 +19,8 @@
                 <img src="img/skeleton.png" class="skeleton" id="skeleton5">
             </div>            
             <div class="ranges">
-                <input type="range" min="0.1" max="1" value="1" step="0.01" oninput="SOUNDS.setVolume(event)"> 
-                <input type="range" min="0.1" max="10" value="3" step="0.01" oninput="SOUNDS.setLength(event)">
+                <input type="range" min="0.1" max="1" value="0.1" step="0.01" oninput="SOUNDS.setVolume(event)"> 
+                <input type="range" min="0.1" max="10" value="1" step="0.01" oninput="SOUNDS.setLength(event)">
                 <input type="range" min="0" max="7" value="4" oninput="SOUNDS.setOctave(event)"> 
                 <!-- <select onchange="SOUNDS.setNoteLenght(event)">
                 <option value="4">redonda</option>
@@ -46,7 +46,7 @@
             </div>      
             <div class="tapes-container">
                 <div>
-                    <span class="pad small active" id="track1" onclick="SOUNDS.setTrack(event)" data-value="0">
+                    <span class="pad small" id="track1" onclick="SOUNDS.setTrack(event)" data-value="0">
                         <span>1</span>
                     </span>
                     <span class="pad small" id="track2" onclick="SOUNDS.setTrack(event)" data-value="1">
@@ -80,47 +80,71 @@
         <div class="padset">
             <br>
             <span class="pad condensed" id="record" onmousedown="SOUNDS.toggleRecording()">
-                <span>RECORD &#9899;</span>
+                <span>RECORD <b>[space]</b></span>
             </span>
             <span class="pad condensed" id="play" onmousedown="SOUNDS.togglePlayer()">
-                <span>PLAY</span>
+                <span>PLAY <b>[enter]</b></span>
             </span>
             <span class="pad condensed" id="clear" onmousedown="SOUNDS.clear()">
-                <span>CLEAR</span>
+                <span>CLEAR <b>[back]</b></span>
             </span>
             <br><br>
                      
             <span onmousedown="SOUNDS.setWave(event)" id="sine" class="pad condensed active" data-value="sine">
-                <span>Sine</span>
+                <span>Sine <b>[1]</b></span>
             </span>
             <span onmousedown="SOUNDS.setWave(event)" id="square" class="pad condensed" data-value="square">
-                <span>Square</span>
+                <span>Square <b>[2]</b></span>
             </span>
             <span onmousedown="SOUNDS.setWave(event)" id="triangle" class="pad condensed" data-value="triangle">
-                <span>Triangle</span>
+                <span>Triangle <b>[3]</b></span>
             </span>
             <span onmousedown="SOUNDS.setWave(event)" id="sawtooth" class="pad condensed" data-value="sawtooth">
-                <span>Sawtooth</span>
+                <span>Sawtooth <b>[4]</b></span>
             </span>
             <br><br><br><br><br><br><br><br>
             
                      
-            <span class="pad" id="pad-C" onmousedown="SOUNDS.playSound(event)" data-note="C"></span>
-            <span class="pad" id="pad-C#" onmousedown="SOUNDS.playSound(event)" data-note="C#"></span>
-            <span class="pad" id="pad-D" onmousedown="SOUNDS.playSound(event)" data-note="D"></span>
-            <span class="pad" id="pad-Eb" onmousedown="SOUNDS.playSound(event)" data-note="Eb"></span>
+            <span class="pad" id="pad-C" onmousedown="SOUNDS.playSound(event)" data-note="C">
+                <span>C <b>[q]</b></span>
+            </span>
+            <span class="pad" id="pad-C#" onmousedown="SOUNDS.playSound(event)" data-note="C#">
+                <span>C# <b>[w]</b></span>
+            </span>
+            <span class="pad" id="pad-D" onmousedown="SOUNDS.playSound(event)" data-note="D">
+                <span>D <b>[e]</b></span>
+            </span>
+            <span class="pad" id="pad-Eb" onmousedown="SOUNDS.playSound(event)" data-note="Eb">
+                <span>Eb <b>[r]</b></span>
+            </span>
             <br>            
             
-            <span class="pad" id="pad-E" onmousedown="SOUNDS.playSound(event)" data-note="E"></span>
-            <span class="pad" id="pad-F" onmousedown="SOUNDS.playSound(event)" data-note="F"></span>
-            <span class="pad" id="pad-F#" onmousedown="SOUNDS.playSound(event)" data-note="F#"></span>
-            <span class="pad" id="pad-G" onmousedown="SOUNDS.playSound(event)" data-note="G"></span>
+            <span class="pad" id="pad-E" onmousedown="SOUNDS.playSound(event)" data-note="E">
+                <span>E <b>[a]</b></span>
+            </span>
+            <span class="pad" id="pad-F" onmousedown="SOUNDS.playSound(event)" data-note="F">
+                <span>F <b>[s]</b></span>
+            </span>
+            <span class="pad" id="pad-F#" onmousedown="SOUNDS.playSound(event)" data-note="F#">
+                <span>F# <b>[d]</b></span>
+            </span>
+            <span class="pad" id="pad-G" onmousedown="SOUNDS.playSound(event)" data-note="G">
+                <span>G <b>[f]</b></span>
+            </span>
             <br>            
             
-            <span class="pad" id="pad-G#" onmousedown="SOUNDS.playSound(event)" data-note="G#"></span>            
-            <span class="pad" id="pad-A" onmousedown="SOUNDS.playSound(event)" data-note="A"></span>
-            <span class="pad" id="pad-Bb" onmousedown="SOUNDS.playSound(event)" data-note="Bb"></span>
-            <span class="pad" id="pad-B" onmousedown="SOUNDS.playSound(event)" data-note="B"></span>
+            <span class="pad" id="pad-G#" onmousedown="SOUNDS.playSound(event)" data-note="G#">
+                <span>G# <b>[z]</b></span>
+            </span>            
+            <span class="pad" id="pad-A" onmousedown="SOUNDS.playSound(event)" data-note="A">
+                <span>A <b>[x]</b></span>
+            </span>
+            <span class="pad" id="pad-Bb" onmousedown="SOUNDS.playSound(event)" data-note="Bb">
+                <span>Bb <b>[c]</b></span>
+            </span>
+            <span class="pad" id="pad-B" onmousedown="SOUNDS.playSound(event)" data-note="B">
+                <span>B <b>[v]</b></span>
+            </span>
         </div>        
             
         

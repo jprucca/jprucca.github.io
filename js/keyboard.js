@@ -92,5 +92,7 @@ SOUNDS.onKeyDown = function (event) {
         case 8:
             SOUNDS.clear();
             break; 
+        case 13:
+            SOUNDS.togglePlayer();
     }
 };

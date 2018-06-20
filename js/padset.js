@@ -10,15 +10,16 @@ SOUNDS.playSound = function(event) {
         volume: parseFloat(SOUNDS.volume)
     };
 
-    if (SOUNDS.audioCtx.state === 'suspended') {
-        SOUNDS.audioCtx.resume();
-    }
+    SOUNDS.beep([sound]);
     
-    if (!SOUNDS.tape[SOUNDS.track].data.length) {
-        SOUNDS.timer = 10;
-    }
     
     if (SOUNDS.recording) {
+        var isAnySavedSound = SOUNDS.tape.some(function (tape) {
+            return tape.data.length > 0;
+        });
+        if (!isAnySavedSound) {
+            SOUNDS.timer = 10;
+        }
         if (SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer]) {
             SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer].push(sound);
         } else {
@@ -26,6 +27,4 @@ SOUNDS.playSound = function(event) {
             SOUNDS.tape[SOUNDS.track].data[SOUNDS.timer].push(sound);
         }
     }
-    
-    SOUNDS.beep([sound]);
 }
