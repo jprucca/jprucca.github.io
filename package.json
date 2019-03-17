@@ -1,7 +1,7 @@
 {
-  "name": "mobx-react-boilerplate",
-  "version": "1.0.0",
-  "description": "Boilerplate for MobX + React project with JSX, ES6 and decorator compilation",
+  "name": "jprucca.github.io",
+  "version": "2.0.0",
+  "description": "Looper machine",
   "scripts": {
     "start": "webpack-dev-server --hot --open",
     "build": "webpack",
@@ -9,21 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mobxjs/mobx-react-boilerplate.git"
+    "url": "https://github.com/jprucca/jprucca.github.io"
   },
   "keywords": [
-    "react",
-    "reactjs",
-    "boilerplate",
     "mobx",
-    "starter-kit"
+    "react",
+    "reactjs"
   ],
-  "author": "Michel Weststrate <mweststrate@gmail.com> (http://github.com/mweststrate)",
+  "author": "Julián Prucca",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mobxjs/mobx/issues"
-  },
-  "homepage": "http://mobxjs.github.com/mobx",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
