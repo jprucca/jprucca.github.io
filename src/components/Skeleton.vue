@@ -1,5 +1,5 @@
 <template>
-  <img :src="'../assets/skeleton.png'" :class="classes" />
+  <img src="../assets/skeleton.png" :class="classes" />
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   },
   computed: {
     classes() {
-      return `skeleton ${this.props.active === this.props.order ? 'active' : ''}`;
+      return `skeleton ${this.active === this.order ? 'active' : ''}`;
     },
   },
 };

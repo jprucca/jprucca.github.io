@@ -1,6 +1,6 @@
 <template>
   <div class="skeletons-container">
-    <Skeleton v-for="n in 5" active="active" order="n" :key="n" />
+    <Skeleton v-for="n in 5" :active="active" :order="n" :key="n" />
   </div>
 </template>
 

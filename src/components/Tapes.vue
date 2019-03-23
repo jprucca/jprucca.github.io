@@ -2,11 +2,11 @@
   <div class="tapes-container">
       <TrackButton
         v-for="n in 4"
-        active="recorderStore.tape[n - 1].active"
-        current="recorderStore.tape[n - 1].current"
-        track="n"
+        :active="tape[n-1].active"
+        :current="tape[n-1].current"
+        :track="n"
         :key="n"
-        on-click="setTrack" />
+        :on-click="setTrack" />
   </div>
 </template>
 

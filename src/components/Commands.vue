@@ -1,6 +1,6 @@
 <template>
   <div class="commands">
-    <Skeletons active="activeSkeleton" />
+    <Skeletons :active="activeSkeleton" />
     <Ranges />
     <!-- <Panner /> -->
     <Tapes />

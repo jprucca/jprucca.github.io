@@ -18,12 +18,12 @@ export default {
   },
   computed: {
     classes() {
-      return `pad condensed ${this.props.activeNote === this.props.note ? 'active' : ''}`;
+      return `pad ${this.activeNote === this.note ? 'active' : ''}`;
     },
   },
   methods: {
     handleMouseDown() {
-      this.props.onMouseDown(this.props.note);
+      this.onMouseDown(this.note);
     },
   },
 };

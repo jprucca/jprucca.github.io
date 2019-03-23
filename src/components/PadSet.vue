@@ -3,48 +3,48 @@
     <br />
 
     <CommandPad
-      active="recording"
+      :active="recording"
       text="RECORD"
       shortcut="spc"
-      on-mouse-down="toggleRecording" />
+      :on-mouse-down="toggleRecording" />
     <CommandPad
       v-if="playing"
-      active="playing"
+      :active="playing"
       text="STOP"
       shortcut="enter"
-      on-mouse-down="togglePlayer" />
+      :on-mouse-down="togglePlayer" />
     <CommandPad
       v-else
       text="START"
       shortcut="enter"
-      on-mouse-down="togglePlayer" />
+      :on-mouse-down="togglePlayer" />
     <CommandPad
       text="CLEAR"
       shortcut="back"
-      on-mouse-down="clear" />
+      :on-mouse-down="clear" />
 
     <br /><br />
 
     <CommandPad
-      active="sineActive"
+      :active="sineActive"
       text="Sine"
       shortcut="1"
-      on-mouse-down="setWave" />
+      :on-mouse-down="setWave" />
     <CommandPad
-      active="squareActive"
+      :active="squareActive"
       text="Square"
       shortcut="2"
-      on-mouse-down="setWave" />
+      :on-mouse-down="setWave" />
     <CommandPad
-      active="triangleActive"
+      :active="triangleActive"
       text="Triangle"
       shortcut="3"
-      on-mouse-down="setWave" />
+      :on-mouse-down="setWave" />
     <CommandPad
-      active="sawtoothActive"
+      :active="sawtoothActive"
       text="Sawtooth"
       shortcut="4"
-      on-mouse-down="setWave" />
+      :on-mouse-down="setWave" />
 
     <br /><br /><br /><br /><br /><br /><br /><br />
 

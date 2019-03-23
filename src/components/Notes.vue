@@ -1,21 +1,21 @@
 <template>
   <div>
     <NoteRow
-      active-note="activeNote"
-      notes="notesRow1"
-      on-mouse-down="playSound"
+      :active-note="activeNote"
+      :notes="notesRow1"
+      :on-mouse-down="playSound"
     />
     <br>
     <NoteRow
-      active-note="activeNote"
-      notes="notesRow2"
-      on-mouse-down="playSound"
+      :active-note="activeNote"
+      :notes="notesRow2"
+      :on-mouse-down="playSound"
     />
     <br>
     <NoteRow
-      active-note="activeNote"
-      notes="notesRow3"
-      on-mouse-down="playSound"
+      :active-note="activeNote"
+      :notes="notesRow3"
+      :on-mouse-down="playSound"
     />
   </div>
 </template>

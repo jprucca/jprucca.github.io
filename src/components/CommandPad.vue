@@ -19,12 +19,12 @@ export default {
   },
   computed: {
     classes() {
-      return `pad condensed ${this.props.active ? 'active' : ''}`;
+      return `pad condensed ${this.active ? 'active' : ''}`;
     },
   },
   methods: {
     handleMouseDown() {
-      this.props.onMouseDown();
+      this.onMouseDown();
     },
   },
 };

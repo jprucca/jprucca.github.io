@@ -29,9 +29,9 @@ export default {
     ]),
     getTrackClasses() {
       let className = '';
-      if (this.props.active) {
+      if (this.active) {
         className += ' active';
-        if (this.props.current) {
+        if (this.current) {
           className += ' current';
         }
       }
