@@ -1,5 +1,5 @@
 <template>
-  <span :class="classes" @click="onClick(track)">
+  <span :class="classes" @click="onClick(track - 1)">
     <span>{{ track }}</span>
   </span>
 </template>
@@ -8,7 +8,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'Tapes',
+  name: 'TapeButton',
   props: {
     active: Boolean,
     current: Boolean,
@@ -20,7 +20,7 @@ export default {
       'tape',
     ]),
     classes() {
-      return `pad small ${this.getTrackClasses()}`;
+      return `pad record small ${this.getTrackClasses()}`;
     },
   },
   methods: {

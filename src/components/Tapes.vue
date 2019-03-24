@@ -1,6 +1,6 @@
 <template>
   <div class="tapes-container">
-      <TrackButton
+      <TapeButton
         v-for="n in 4"
         :active="tape[n-1].active"
         :current="tape[n-1].current"
@@ -12,12 +12,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import TrackButton from './TrackButton.vue';
+import TapeButton from './TapeButton.vue';
 
 export default {
   name: 'Tapes',
   components: {
-    TrackButton,
+    TapeButton,
   },
   computed: {
     ...mapGetters([

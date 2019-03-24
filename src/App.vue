@@ -146,7 +146,7 @@ body {
 .pad.small.current {
     animation: blink-animation 1s infinite;
 }
-#record.pad.active {
+.record.pad.active {
     animation: blink-animation 1s infinite;
 }
 @keyframes blink-animation {

@@ -1,7 +1,6 @@
 <template>
   <span
     :class="classes"
-    id="record"
     @mousedown="handleMouseDown"
   >
     <span>{{ text }} <b>[{{ shortcut }}]</b></span>
@@ -19,12 +18,12 @@ export default {
   },
   computed: {
     classes() {
-      return `pad condensed ${this.active ? 'active' : ''}`;
+      return `record pad condensed ${this.active ? 'active' : ''}`;
     },
   },
   methods: {
     handleMouseDown() {
-      this.onMouseDown();
+      this.onMouseDown(this.text.toLowerCase());
     },
   },
 };

@@ -17,7 +17,7 @@ import Note from './Note.vue';
 export default {
   name: 'NoteRow',
   components: {
-    Note
+    Note,
   },
   props: {
     activeNote: String,
