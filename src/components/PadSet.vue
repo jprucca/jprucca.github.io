@@ -46,7 +46,7 @@
       shortcut="4"
       :on-mouse-down="setWave" />
 
-    <br /><br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br />
 
     <Notes />
 

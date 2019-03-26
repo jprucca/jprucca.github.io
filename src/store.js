@@ -191,60 +191,121 @@ export default new Vuex.Store({
       state.wave = value;
     },
     setTrack(state, trackNumber) {
-      if (!state.recording) {
-        state.track = parseInt(trackNumber, 10);
-
-        state.tape.forEach((tape) => { tape.current = false; });
-
-        state.tape[state.track].current = !state.tape[state.track].current;
-
-        if (state.tape[state.track].current && !state.tape[state.track].active) {
-          state.tape[state.track].active = true;
-        } else if (state.tape[state.track].current && state.tape[state.track].active) {
-          state.tape[state.track].active = false;
-        }
-      }
+      state.track = parseInt(trackNumber, 10);
     },
-    setPanner(state, event) {
-      if (state.activatePanner) {
-        state.panner = { x: (event.clientX - 150) / 10, y: 0, z: 0 };
-      }
+    setCurrentTape(state, trackNumber) {
+      const tapes = state.tape.map(tape => ({ ...tape, current: false }));
+      tapes[trackNumber].current = true;
+      state.tape = tapes;
     },
-    togglePanner(state) {
-      if (state.activatePanner) {
-        state.panner = { x: 0, y: 0, z: 0 };
-        state.activatePanner = false;
+    setActiveTape(state, { trackNumber, active }) {
+      state.tape[trackNumber].active = active;
+    },
+    setPanner(state, clientX) {
+      state.panner = { x: (clientX - 150) / 10, y: 0, z: 0 };
+    },
+    resetPanner(state) {
+      state.panner = { x: 0, y: 0, z: 0 };
+    },
+    togglePanner(state, active) {
+      state.activatePanner = active;
+    },
+    resetTimer(state) {
+      state.timer = 10;
+    },
+    setTimer(state, timer) {
+      state.timer = timer;
+    },
+    pushCurrentSoundToRecorder(state, trackNumber, timer, sound) {
+      if (state.tape[trackNumber].data[timer]) {
+        state.tape[trackNumber].data[timer].push(sound);
       } else {
-        state.activatePanner = true;
+        state.tape[trackNumber].data[timer] = [];
+        state.tape[trackNumber].data[timer].push(sound);
       }
     },
-    playSound(state, note) {
-      const { octave } = state;
-      const frequency = state.notes[octave][note];
-      const sound = {
-        frequency,
-        wave: state.wave,
-        length: state.noteLength,
-        volume: state.volume,
-      };
+    animateSkeletons(state) {
+      const min = 1;
+      const max = 5;
+      state.activeSkeleton = state.activeSkeleton === max ? min : state.activeSkeleton + 1;
+    },
+    togglePlayer(state, active) {
+      state.playing = active;
+    },
+    setPlayerInterval(state, interval) {
+      state.playerInterval = interval;
+    },
+    setTimerInterval(state, interval) {
+      state.timerInterval = interval;
+    },
+    clearIntervalName(state, intervalName) {
+      clearInterval(state[intervalName]);
+    },
+    toggleRecording(state, active) {
+      state.recording = active;
+    },
+    setTapeLength(state, tapeLength) {
+      state.tapeLength = tapeLength;
+    },
+    clearTrackData(state, trackNumber) {
+      state.tape[trackNumber].data = {};
+    },
+    setKeyDownListenerAttached(state) {
+      state.keyDownListenerAttached = true;
+    },
+    registerOnKeyDownListener(state) {
+      if (!state.keyDownListenerAttached) {
+        state.keyDownListenerAttached = true;
+        window.addEventListener('keydown', state.onKeyDown.bind(state));
+      }
+    },
+    activateNote(state, note) {
+      state.activeNote = note;
+    },
+    deactivateNote(state) {
+      state.activeNote = null;
+    },
+  },
+  actions: {
+    setOctave({ commit }, value) {
+      commit('setOctave', value);
+    },
+    setNoteLength({ commit }, value) {
+      commit('setNoteLength', value);
+    },
+    setVolume({ commit }, value) {
+      commit('setVolume', value);
+    },
+    setWave({ commit }, value) {
+      commit('setWave', value);
+    },
+    setTrack({ commit, state }, trackNumber) {
+      if (!state.recording) {
+        commit('setTrack', trackNumber);
+        commit('setCurrentTape', trackNumber);
 
-      state.beep([sound]);
-
-      if (state.recording) {
-        const isAnySavedSound = state.tape.some(tape => Object.keys(tape.data).length > 0);
-
-        if (!isAnySavedSound) {
-          state.timer = 10;
-        }
-        if (state.tape[state.track].data[state.timer]) {
-          state.tape[state.track].data[state.timer].push(sound);
-        } else {
-          state.tape[state.track].data[state.timer] = [];
-          state.tape[state.track].data[state.timer].push(sound);
+        if (state.tape[trackNumber].current && !state.tape[trackNumber].active) {
+          commit('setActiveTape', { trackNumber, active: true });
+        } else if (state.tape[trackNumber].current && state.tape[trackNumber].active) {
+          commit('setActiveTape', { trackNumber, active: false });
         }
       }
     },
-    beep(state, sounds) {
+    setPanner({ commit, state }, event) {
+      if (state.activatePanner) {
+        commit('resetPanner');
+        commit('setPanner', event.clientX);
+      }
+    },
+    togglePanner({ commit, state }) {
+      if (state.activatePanner) {
+        commit('resetPanner');
+        commit('togglePanner', false);
+      } else {
+        commit('togglePanner', true);
+      }
+    },
+    beep({ commit, state }, sounds) {
       sounds.forEach((sound) => {
         const o = state.audioCtx.createOscillator();
         const g = state.audioCtx.createGain();
@@ -267,228 +328,185 @@ export default new Vuex.Store({
           o.stop(state.audioCtx.currentTime + length);
         }
       });
+      commit('animateSkeletons');
+    },
+    playSound({ commit, dispatch, state }, note) {
+      const { octave } = state;
+      const frequency = state.notes[octave][note];
+      const sound = {
+        frequency,
+        wave: state.wave,
+        length: state.noteLength,
+        volume: state.volume,
+      };
 
-      state.animateSkeletons();
+      dispatch('beep', [sound]);
+
+      if (state.recording) {
+        const isAnySavedSound = state.tape.some(tape => Object.keys(tape.data).length > 0);
+
+        if (!isAnySavedSound) {
+          commit('resetTimer');
+        }
+
+        commit('pushCurrentSoundToRecorder', state.track, state.timer, sound);
+      }
     },
-    animateSkeletons(state) {
-      const min = 1;
-      const max = 5;
-      state.activeSkeleton = state.activeSkeleton === max ? min : state.activeSkeleton + 1;
+    animateSkeletons({ commit }) {
+      commit('animateSkeletons');
     },
-    togglePlayer(state) {
+    togglePlayer({ commit, dispatch, state }) {
       if (!state.recording) {
         if (!state.playing && Object.keys(state.tape[state.track].data).length) {
-          state.playing = true;
+          commit('togglePlayer', true);
 
-          state.playerInterval = setInterval(() => {
-            state.timer = 0;
-          }, state.tapeLength);
+          commit('setPlayerInterval', setInterval(() => {
+            commit('setTimer', 0);
+          }, state.tapeLength));
 
-          state.timerInterval = setInterval(() => {
-            state.timer += state.ms;
+          commit('setTimerInterval', setInterval(() => {
+            commit('setTimer', state.ms);
             state.tape.forEach((tape) => {
               if (tape.active) {
                 if (tape.data[state.timer]) {
-                  state.beep(tape.data[state.timer]);
+                  dispatch('beep', tape.data[state.timer]);
                 }
               }
             });
-          }, state.ms);
+          }, state.ms));
         } else {
-          clearInterval(state.playerInterval);
-          clearInterval(state.timerInterval);
-          state.playing = false;
-          state.timer = 0;
+          commit('clearIntervalName', 'playerInterval');
+          commit('clearIntervalName', 'timerInterval');
+          commit('togglePlayer', false);
+          commit('setTimer', 0);
         }
       }
     },
-    toggleRecording(state) {
+    toggleRecording({ commit, state }) {
       if (!state.recording) {
-        state.recording = true;
+        commit('toggleRecording', true);
 
         if (!state.tape.some(tape => tape.active)) {
-          state.tape[0].active = true;
-          state.tape[0].current = true;
+          commit('setActiveTape', { trackNumber: 0, active: true });
+          commit('setCurrentTape', 0);
         }
 
         if (!state.playing) {
-          state.timerInterval = setInterval(() => { state.timer += state.ms; }, state.ms);
+          commit('setTimerInterval', setInterval(() => { state.timer += state.ms; }, state.ms));
         }
       } else {
-        state.recording = false;
+        commit('toggleRecording', false);
 
         if (!state.tapeLength) {
-          state.tapeLength = state.timer;
+          commit('setTapeLength', state.timer);
         }
 
         if (!state.playing) {
-          clearInterval(state.timerInterval);
-          state.tapeLength = state.timer;
-          state.timer = 0;
-          state.togglePlayer();
+          commit('setTapeLength', state.timer);
+          commit('clearIntervalName', 'timerInterval');
+          commit('setTimer', 0);
+          commit('togglePlayer', true);
         }
       }
     },
-    clear(state) {
-      state.tape[state.track].data = {};
+    clear({ commit, state }) {
+      commit('clearTrackData', state.track);
       const hasData = state.tape.some(tape => Object.keys(tape.data).length > 0);
       if (!hasData) {
-        state.tapeLength = 0;
-        state.timer = 0;
-        state.recording = false;
-        state.playing = false;
-        clearInterval(state.timerInterval);
-        clearInterval(state.playerInterval);
+        commit('setTapeLength', 0);
+        commit('setTimer', 0);
+        commit('togglePlayer', false);
+        commit('toggleRecording', false);
+        commit('clearIntervalName', 'playerInterval');
+        commit('clearIntervalName', 'timerInterval');
       }
     },
-    registerOnKeyDownListener(state) {
-      if (!state.keyDownListenerAttached) {
-        state.keyDownListenerAttached = true;
-        window.addEventListener('keydown', state.onKeyDown.bind(state));
-      }
-    },
-    animatePad(state, note) {
-      state.activateNote(note);
+    animatePad({ commit }, note) {
+      commit('activateNote', note);
       setTimeout(() => {
-        state.deactivateNote(note);
+        commit('deactivateNote', note);
       }, 150);
     },
-    activateNote(state, note) {
-      state.activeNote = note;
-    },
-    deactivateNote(state) {
-      state.activeNote = null;
-    },
-    onKeyDown(state, event) {
+    onKeyDown({ commit, dispatch, state }, event) {
       switch (event.keyCode) {
         case 90:
-          state.playSound('G#');
-          state.animatePad('G#');
+          dispatch('playSound', 'G#');
+          dispatch('animatePad', 'G#');
           break;
         case 88:
-          state.playSound('A');
-          state.animatePad('A');
+          dispatch('playSound', 'A');
+          dispatch('animatePad', 'A');
           break;
         case 67:
-          state.playSound('Bb');
-          state.animatePad('Bb');
+          dispatch('playSound', 'Bb');
+          dispatch('animatePad', 'Bb');
           break;
         case 86:
-          state.playSound('B');
-          state.animatePad('B');
+          dispatch('playSound', 'B');
+          dispatch('animatePad', 'B');
           break;
         case 65:
-          state.playSound('E');
-          state.animatePad('E');
+          dispatch('playSound', 'E');
+          dispatch('animatePad', 'E');
           break;
         case 83:
-          state.playSound('F');
-          state.animatePad('F');
+          dispatch('playSound', 'F');
+          dispatch('animatePad', 'F');
           break;
         case 68:
-          state.playSound('F#');
-          state.animatePad('F#');
+          dispatch('playSound', 'F#');
+          dispatch('animatePad', 'F#');
           break;
         case 70:
-          state.playSound('G');
-          state.animatePad('G');
+          dispatch('playSound', 'G');
+          dispatch('animatePad', 'G');
           break;
         case 81:
-          state.playSound('C');
-          state.animatePad('C');
+          dispatch('playSound', 'C');
+          dispatch('animatePad', 'C');
           break;
         case 87:
-          state.playSound('C#');
-          state.animatePad('C#');
+          dispatch('playSound', 'C#');
+          dispatch('animatePad', 'C#');
           break;
         case 69:
-          state.playSound('D');
-          state.animatePad('D');
+          dispatch('playSound', 'D');
+          dispatch('animatePad', 'D');
           break;
         case 82:
-          state.playSound('Eb');
-          state.animatePad('Eb');
+          dispatch('playSound', 'Eb');
+          dispatch('animatePad', 'Eb');
           break;
         case 32:
-          state.toggleRecording();
+          commit('toggleRecording', !state.recording);
           break;
         case 49:
-          state.setWave('sine');
+          commit('setWave', 'sine');
           break;
         case 50:
-          state.setWave('square');
+          commit('setWave', 'square');
           break;
         case 51:
-          state.setWave('triangle');
+          commit('setWave', 'triangle');
           break;
         case 52:
-          state.setWave('sawtooth');
+          commit('setWave', 'sawtooth');
           break;
         case 8:
-          state.clear();
+          dispatch('clear');
           break;
         case 13:
-          state.togglePlayer();
+          dispatch('togglePlayer');
           break;
         default:
           break;
       }
     },
-  },
-  actions: {
-    setOctave({ commit }, value) {
-      commit('setOctave', value);
-    },
-    setNoteLength({ commit }, value) {
-      commit('setNoteLength', value);
-    },
-    setVolume({ commit }, value) {
-      commit('setVolume', value);
-    },
-    setWave({ commit }, value) {
-      commit('setWave', value);
-    },
-    setTrack({ commit }, trackNumber) {
-      commit('setTrack', trackNumber);
-    },
-    setPanner({ commit }, event) {
-      commit('setPanner', event);
-    },
-    togglePanner({ commit }) {
-      commit('togglePanner');
-    },
-    playSound({ commit }, note) {
-      commit('playSound', note);
-    },
-    beep({ commit }, sounds) {
-      commit('beep', sounds);
-    },
-    animateSkeletons({ commit }) {
-      commit('animateSkeletons');
-    },
-    togglePlayer({ commit }) {
-      commit('togglePlayer');
-    },
-    toggleRecording({ commit }) {
-      commit('toggleRecording');
-    },
-    clear({ commit }) {
-      commit('clear');
-    },
-    registerOnKeyDownListener({ commit }) {
-      commit('registerOnKeyDownListener');
-    },
-    animatePad({ commit }, note) {
-      commit('animatePad', note);
-    },
-    activateNote({ commit }, note) {
-      commit('activateNote', note);
-    },
-    deactivateNote({ commit }) {
-      commit('deactivateNote');
-    },
-    onKeyDown({ commit }, event) {
-      commit('onKeyDown', event);
+    registerOnKeyDownListener({ commit, dispatch, state }) {
+      if (!state.keyDownListenerAttached) {
+        commit('setKeyDownListenerAttached');
+        window.addEventListener('keydown', event => dispatch('onKeyDown', event));
+      }
     },
   },
   getters: {

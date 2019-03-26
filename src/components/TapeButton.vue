@@ -1,32 +1,24 @@
 <template>
-  <span :class="classes" @click="onClick(track - 1)">
-    <span>{{ track }}</span>
+  <span :class="classes" @click="onClick(tapeNumber)">
+    <span>{{ tapeNumber + 1}}</span>
   </span>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 export default {
   name: 'TapeButton',
   props: {
     active: Boolean,
     current: Boolean,
     onClick: Function,
-    track: Number,
+    tapeNumber: Number,
   },
   computed: {
-    ...mapGetters([
-      'tape',
-    ]),
     classes() {
       return `pad record small ${this.getTrackClasses()}`;
     },
   },
   methods: {
-    ...mapActions([
-      'setTrack',
-    ]),
     getTrackClasses() {
       let className = '';
       if (this.active) {

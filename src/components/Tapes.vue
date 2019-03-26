@@ -1,12 +1,12 @@
 <template>
   <div class="tapes-container">
-      <TapeButton
-        v-for="n in 4"
-        :active="tape[n-1].active"
-        :current="tape[n-1].current"
-        :track="n"
-        :key="n"
-        :on-click="setTrack" />
+    <TapeButton
+      v-for="(item, index) in tape"
+      :active="item.active"
+      :current="item.current"
+      :tapeNumber="index"
+      :key="index"
+      :on-click="setTrack" />
   </div>
 </template>
 

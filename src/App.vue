@@ -10,6 +10,9 @@ export default {
   components: {
     Root,
   },
+  created() {
+    this.$store.dispatch('registerOnKeyDownListener');
+  },
 };
 </script>
 
@@ -33,6 +36,63 @@ body {
 ::-moz-selection {
   background: none; /* Gecko Browsers */
 }
+.commands {
+    margin-top: 200px;
+    width: 50%;
+    float: left;
+    /*background-color: black;*/
+}
+.commands .command-label {
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+}
+.commands .skeletons-container {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 45px;
+    background-color: black;
+}
+.commands .skeleton {
+    width: 50px;
+    padding-bottom: 0px;
+    transition: padding 0.2s linear;
+}
+.commands .skeleton.active {
+    padding-bottom: 20px;
+    transition: padding 0.2s linear;
+}
+.commands .ranges {
+    margin-top: 60px;
+    margin-left: 10px;
+}
+.commands .tapes-container {
+    margin-top: 175px;
+    display: block;
+}
+.commands .panner {
+    width: 300px;
+    height: 30px;
+    margin-top: 40px;
+    background-color: #000;
+    border: 2px solid #cfcfcf;
+    cursor: e-resize;
+    text-align: center;
+    font-weight: bold;
+}
+.commands .panner.active {
+    background-color: #2ecc71;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  height: 150px;
+  width: 95px;
+  /*border-radius: 50px;*/
+  outline: none;
+  /*writing-mode: bt-lr;*/
+  -webkit-appearance: slider-vertical;
+}
 .pad {
   width: 95px;
   height: 95px;
@@ -50,6 +110,7 @@ body {
   cursor: pointer;
   font-size: 15px;
   position: relative;
+  margin: 0px 3px;
 }
 .pad:hover {
   background: #229653;
@@ -97,7 +158,7 @@ body {
 .pad.small.current {
     animation: blink-animation 1s infinite;
 }
-#record.pad.active {
+.record.pad.active {
     animation: blink-animation 1s infinite;
 }
 @keyframes blink-animation {
@@ -110,60 +171,7 @@ body {
     border-color: #1f8b4d;
   }
 }
-input[type=range] {
-  -webkit-appearance: none;
-  height: 150px;
-  width: 95px;
-  /*border-radius: 50px;*/
-  outline: none;
-  /*writing-mode: bt-lr;*/
-  -webkit-appearance: slider-vertical;
-}
 .padset {
     float: right;
-}
-.commands {
-    margin-top: 200px;
-    width: 50%;
-    float: left;
-    /*background-color: black;*/
-}
-.commands .command-label {
-    width: 100px;
-    text-align: center;
-    display: inline-block;
-}
-.commands .skeletons-container {
-    display: block;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: black;
-}
-.commands .skeleton {
-    width: 50px;
-    padding-bottom: 0px;
-    transition: padding 0.2s linear;
-}
-.commands .skeleton.active {
-    padding-bottom: 20px;
-    transition: padding 0.2s linear;
-}
-.commands .tapes-container {
-    margin-top: 50px;
-    display: block;
-}
-.commands .panner {
-    width: 300px;
-    height: 30px;
-    margin-top: 40px;
-    background-color: #000;
-    border: 2px solid #cfcfcf;
-    cursor: e-resize;
-    text-align: center;
-    font-weight: bold;
-}
-.commands .panner.active {
-    background-color: #2ecc71;
 }
 </style>
