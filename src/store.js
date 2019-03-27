@@ -6,7 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    audioCtx: new (window.AudioContext || window.webkitAudioContext)(),
+    audioCtx: null,
     octave: 4,
     noteLength: 1,
     volume: 0.1,
@@ -259,6 +259,9 @@ export default new Vuex.Store({
         window.addEventListener('keydown', state.onKeyDown.bind(state));
       }
     },
+    registerAudioContext(state) {
+      state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    },
     activateNote(state, note) {
       state.activeNote = note;
     },
@@ -510,6 +513,9 @@ export default new Vuex.Store({
         commit('setKeyDownListenerAttached');
         window.addEventListener('keydown', event => dispatch('onKeyDown', event));
       }
+    },
+    registerAudioContext({ commit, dispatch, state }) {
+      commit('registerAudioContext');
     },
   },
   getters: {

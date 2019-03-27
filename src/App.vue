@@ -12,6 +12,7 @@ export default {
   },
   created() {
     this.$store.dispatch('registerOnKeyDownListener');
+    this.$store.dispatch('registerAudioContext');
   },
 };
 </script>
