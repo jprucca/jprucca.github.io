@@ -216,7 +216,7 @@ export default new Vuex.Store({
     setTimer(state, timer) {
       state.timer = timer;
     },
-    pushCurrentSoundToRecorder(state, {trackNumber, timer, sound}) {
+    pushCurrentSoundToRecorder(state, { trackNumber, timer, sound }) {
       if (state.tape[trackNumber].data[timer]) {
         state.tape[trackNumber].data[timer].push(sound);
       } else {
@@ -349,7 +349,7 @@ export default new Vuex.Store({
           commit('resetTimer');
         }
 
-        commit('pushCurrentSoundToRecorder', {trackNumber: state.track, timer: state.timer, sound});
+        commit('pushCurrentSoundToRecorder', { trackNumber: state.track, timer: state.timer, sound });
       }
     },
     animateSkeletons({ commit }) {
