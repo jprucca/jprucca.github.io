@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     classes() {
-      return `pad record small ${this.getTrackClasses()}`;
+      return `pad small ${this.getTrackClasses()}`;
     },
   },
   methods: {

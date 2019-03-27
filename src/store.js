@@ -216,7 +216,7 @@ export default new Vuex.Store({
     setTimer(state, timer) {
       state.timer = timer;
     },
-    pushCurrentSoundToRecorder(state, trackNumber, timer, sound) {
+    pushCurrentSoundToRecorder(state, {trackNumber, timer, sound}) {
       if (state.tape[trackNumber].data[timer]) {
         state.tape[trackNumber].data[timer].push(sound);
       } else {
@@ -233,10 +233,10 @@ export default new Vuex.Store({
       state.playing = active;
     },
     setPlayerInterval(state, interval) {
-      state.playerInterval = interval;
+      state.playerInterval = setInterval(interval, state.tapeLength);
     },
     setTimerInterval(state, interval) {
-      state.timerInterval = interval;
+      state.timerInterval = setInterval(interval, state.ms);
     },
     clearIntervalName(state, intervalName) {
       clearInterval(state[intervalName]);
@@ -349,23 +349,26 @@ export default new Vuex.Store({
           commit('resetTimer');
         }
 
-        commit('pushCurrentSoundToRecorder', state.track, state.timer, sound);
+        commit('pushCurrentSoundToRecorder', {trackNumber: state.track, timer: state.timer, sound});
       }
     },
     animateSkeletons({ commit }) {
       commit('animateSkeletons');
     },
+    startPlayer({ commit }) {
+      commit('togglePlayer', true);
+
+      commit('setPlayerInterval', () => {
+        commit('setTimer', 0);
+      });
+    },
     togglePlayer({ commit, dispatch, state }) {
       if (!state.recording) {
         if (!state.playing && Object.keys(state.tape[state.track].data).length) {
-          commit('togglePlayer', true);
+          dispatch('startPlayer');
 
-          commit('setPlayerInterval', setInterval(() => {
-            commit('setTimer', 0);
-          }, state.tapeLength));
-
-          commit('setTimerInterval', setInterval(() => {
-            commit('setTimer', state.ms);
+          commit('setTimerInterval', () => {
+            commit('setTimer', state.timer + state.ms);
             state.tape.forEach((tape) => {
               if (tape.active) {
                 if (tape.data[state.timer]) {
@@ -373,7 +376,7 @@ export default new Vuex.Store({
                 }
               }
             });
-          }, state.ms));
+          });
         } else {
           commit('clearIntervalName', 'playerInterval');
           commit('clearIntervalName', 'timerInterval');
@@ -382,7 +385,7 @@ export default new Vuex.Store({
         }
       }
     },
-    toggleRecording({ commit, state }) {
+    toggleRecording({ commit, dispatch, state }) {
       if (!state.recording) {
         commit('toggleRecording', true);
 
@@ -392,7 +395,7 @@ export default new Vuex.Store({
         }
 
         if (!state.playing) {
-          commit('setTimerInterval', setInterval(() => { state.timer += state.ms; }, state.ms));
+          commit('setTimerInterval', () => { state.timer += state.ms; });
         }
       } else {
         commit('toggleRecording', false);
@@ -405,7 +408,7 @@ export default new Vuex.Store({
           commit('setTapeLength', state.timer);
           commit('clearIntervalName', 'timerInterval');
           commit('setTimer', 0);
-          commit('togglePlayer', true);
+          dispatch('togglePlayer');
         }
       }
     },
@@ -478,7 +481,7 @@ export default new Vuex.Store({
           dispatch('animatePad', 'Eb');
           break;
         case 32:
-          commit('toggleRecording', !state.recording);
+          dispatch('toggleRecording', !state.recording);
           break;
         case 49:
           commit('setWave', 'sine');
