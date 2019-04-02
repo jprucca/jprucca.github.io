@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Notes from './Notes.vue';
 import CommandPad from './CommandPad.vue';
 
@@ -64,7 +64,7 @@ export default {
     Notes, CommandPad,
   },
   computed: {
-    ...mapGetters([
+    ...mapState([
       'recording',
       'playing',
       'wave',
@@ -92,3 +92,9 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.padset {
+  float: right;
+}
+</style>

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Ranges',
@@ -50,7 +50,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
+    ...mapState([
       'volume',
       'noteLength',
       'octave',
@@ -65,3 +65,25 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.command-label {
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+}
+.ranges {
+  margin-top: 60px;
+  margin-left: 10px;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  height: 150px;
+  width: 95px;
+  /*border-radius: 50px;*/
+  outline: none;
+  /*writing-mode: bt-lr;*/
+  -webkit-appearance: slider-vertical;
+}
+</style>
+

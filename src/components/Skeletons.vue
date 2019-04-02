@@ -17,3 +17,14 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.skeletons-container {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 45px;
+  background-color: black;
+}
+</style>
+

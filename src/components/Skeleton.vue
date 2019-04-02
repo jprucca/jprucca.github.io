@@ -16,3 +16,16 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.skeleton {
+  width: 50px;
+  padding-bottom: 0px;
+  transition: padding 0.2s linear;
+
+  &.active {
+    padding-bottom: 20px;
+    transition: padding 0.2s linear;
+  }
+}
+</style>

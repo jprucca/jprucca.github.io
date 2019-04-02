@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import Skeletons from './Skeletons.vue';
 import Ranges from './Ranges.vue';
 import Tapes from './Tapes.vue';
@@ -21,9 +21,18 @@ export default {
     Tapes,
   },
   computed: {
-    ...mapGetters([
+    ...mapState([
       'activeSkeleton',
     ]),
   },
 };
 </script>
+
+<style lang="less" scoped>
+.commands {
+  margin-top: 200px;
+  width: 50%;
+  float: left;
+  /*background-color: black;*/
+}
+</style>

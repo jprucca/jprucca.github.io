@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Panner',
   computed: {
-    ...mapGetters([
+    ...mapState([
       'activatePanner',
     ]),
     classes() {
@@ -25,3 +25,20 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.panner {
+  width: 300px;
+  height: 30px;
+  margin-top: 40px;
+  background-color: #000;
+  border: 2px solid #cfcfcf;
+  cursor: e-resize;
+  text-align: center;
+  font-weight: bold;
+}
+.panner.active {
+  background-color: #2ecc71;
+}
+</style>
+

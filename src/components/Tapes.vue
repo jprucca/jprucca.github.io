@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import TapeButton from './TapeButton.vue';
 
 export default {
@@ -20,7 +20,7 @@ export default {
     TapeButton,
   },
   computed: {
-    ...mapGetters([
+    ...mapState([
       'tape',
     ]),
   },
@@ -31,3 +31,11 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.tapes-container {
+  margin-top: 175px;
+  display: block;
+}
+</style>
+

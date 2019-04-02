@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import NoteRow from './NoteRow.vue';
 
 export default {
@@ -30,7 +30,7 @@ export default {
     NoteRow,
   },
   computed: {
-    ...mapGetters([
+    ...mapState([
       'activeNote',
       'notesRow1',
       'notesRow2',
